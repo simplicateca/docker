@@ -1,0 +1,40 @@
+{
+  "createdAt": "2024-10-28T04:03:31.079Z",
+  "updatedAt": "2024-10-28T04:08:41.000Z",
+  "id": "simplicateca-email-trigger-starter",
+  "name": "Email Trigger Starter",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "26ff80d5-8e1b-495e-87ad-d4acbfdd52d3",
+      "name": "Email Trigger (IMAP)",
+      "type": "n8n-nodes-base.emailReadImap",
+      "typeVersion": 2,
+      "position": [
+        820,
+        400
+      ],
+      "credentials": {
+        "imap": {
+          "id": "webops-email",
+          "name": "webops.email"
+        }
+      }
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "966e683e-6fef-4380-9eac-3a7eecfbe407",
+  "triggerCount": 0,
+  "tags": []
+}

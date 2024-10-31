@@ -1,0 +1,48 @@
+{
+  "createdAt": "2024-10-28T04:10:08.399Z",
+  "updatedAt": "2024-10-28T04:10:41.000Z",
+  "id": "simplicateca-form-trigger-starter",
+  "name": "Form Trigger",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "eefcda68-3ea1-46b4-9cff-e51d0e9037e4",
+        "formTitle": "Project Kick-off",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Project Name",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "ignoreBots": true
+        }
+      },
+      "id": "ed87196d-5ebe-4409-8473-9c1c6166f8c8",
+      "name": "n8n Form Trigger",
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.1,
+      "position": [
+        820,
+        400
+      ],
+      "webhookId": "eefcda68-3ea1-46b4-9cff-e51d0e9037e4"
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "1877fcdd-a588-4ea2-9ba6-1acfd4cc9593",
+  "triggerCount": 0,
+  "tags": []
+}

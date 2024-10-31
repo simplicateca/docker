@@ -1,0 +1,42 @@
+{
+  "createdAt": "2024-10-28T04:12:17.698Z",
+  "updatedAt": "2024-10-28T04:12:47.000Z",
+  "id": "simplicateca-file-trigger-starter",
+  "name": "File Trigger Starter",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {
+        "triggerOn": "folder",
+        "path": "/shared/uploads",
+        "events": [
+          "add",
+          "change"
+        ],
+        "options": {
+          "depth": -1
+        }
+      },
+      "id": "084f788f-51b6-4721-88bd-06ffca08e750",
+      "name": "Local File Trigger",
+      "type": "n8n-nodes-base.localFileTrigger",
+      "typeVersion": 1,
+      "position": [
+        820,
+        360
+      ]
+    }
+  ],
+  "connections": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "75b4e822-8c77-45ef-882f-a900e4060c96",
+  "triggerCount": 0,
+  "tags": []
+}

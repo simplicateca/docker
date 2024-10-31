@@ -1,0 +1,11 @@
+services:
+  n8n:
+    image: n8nio/n8n
+    container_name: n8n
+    env_file: [.env]
+    ports:
+      - 5678:5678
+    volumes:
+      - /home/ploi/containers-data/shared:/shared
+      - /home/ploi/containers-data/n8n-data:/home/node/.n8n
+      - /home/ploi/containers-data/n8n:/n8n

@@ -1,0 +1,36 @@
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: minio
+    command: server /data
+    env_file: [.env]
+    ports:
+      - "9000:9000"
+    volumes:
+      - minio_data:/data
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+#  With Web Console Enabled
+#-----------------------------------------------
+#  minio:
+#    image: minio/minio:latest
+#    container_name: minio
+#    command: server /data --console-address ":9001"
+#    env_file: [.env]
+#    ports:
+#      - "9000:9000"  # S3 API
+#      - "9001:9001"  # Web console
+#    volumes:
+#      - minio_data:/data
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+#      interval: 30s
+#      timeout: 20s
+#      retries: 3
+
+volumes:
+  minio_data:
