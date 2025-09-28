@@ -1,33 +1,85 @@
 fastapi
-trafilatura
-Scrapy
-requests
-youtube-dl
+uvicorn[standard]
+aiofiles
+httpx
+loguru
+rich
+
+# NLP / Embeddings / AI
+openai
+tiktoken
+spacy
+langchain
+langchain-community
+chromadb
+unstructured
+
+# Storage & Data
+meilisearch
+pymongo
+psycopg2-binary
+minio
+dropbox
+sqlalchemy
+
+# Parsing & File Formats
+python-frontmatter
 PyPDF2
+pdfplumber
+python-docx
+openpyxl
+Jinja2
+
+# Media
 moviepy
 pydub
 vosk
+yt-dlp
 youtube_transcript_api
+
+# Scraping / Crawling
+trafilatura
+Scrapy
 google-api-python-client
-python-frontmatter
-tavily-python
-Jinja2
-dropbox
-meilisearch
-miniflux
-watchdog
-archive-reddit-user
-bdfr
+
+# Tabular / CSV
+pandas
+pyarrow
+
+# Images
+Pillow
+opencv-python
+
+# Markdown
+markdown-it-py
+
+# RSS
+feedparser
+
+# Media / ffmpeg
+ffmpeg-python
+
+# Email
+aiosmtplib
+email-validator
+mailersend
+imap-tools
+mail-parser
+
+# Bots / Messaging
 twilio
 slackbot
 signalbot
-langchain
-tiktoken
-unstructured
-chromadb
-pymongo
-psycopg2
-openai
-spacy
+
+# Other Tools
+watchdog
+tavily-python
+archive-reddit-user
+bdfr
+
+# Research
 git+https://github.com/LIAAD/yake
 git+https://github.com/boudinfl/pke.git
+
+# Config
+pydantic-settings

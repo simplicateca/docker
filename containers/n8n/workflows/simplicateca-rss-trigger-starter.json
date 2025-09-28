@@ -1,0 +1,42 @@
+{
+    "createdAt": "2024-11-04T19:59:53.251Z",
+    "updatedAt": "2024-11-04T20:00:06.000Z",
+    "id": "simplicateca-rss-trigger-starter",
+    "name": "RSS Feed Trigger",
+    "active": false,
+    "nodes": [
+      {
+        "parameters": {
+          "pollTimes": {
+            "item": [
+              {
+                "mode": "custom",
+                "cronExpression": "*/15 * * * * *"
+              }
+            ]
+          },
+          "feedUrl": "https://example.com/feed.xml"
+        },
+        "id": "c73b0103-f7a8-4636-9992-5457d665c792",
+        "name": "RSS Feed Trigger",
+        "type": "n8n-nodes-base.rssFeedReadTrigger",
+        "typeVersion": 1,
+        "position": [
+          680,
+          380
+        ]
+      }
+    ],
+    "connections": {},
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "staticData": null,
+    "meta": {
+      "templateCredsSetupCompleted": true
+    },
+    "pinData": {},
+    "versionId": "9f24653d-8ca4-4ebd-ac46-cb43ba9fbd46",
+    "triggerCount": 0,
+    "tags": []
+}

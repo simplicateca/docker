@@ -1,0 +1,54 @@
+name: Build and push images
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+    paths:
+      - 'images/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        image:
+          - python-fastapi
+          - php-fpm
+
+    defaults:
+      run:
+        working-directory: images/docker-${{ matrix.image }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Set release version
+        run: echo "RELEASE_VERSION=${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+      - name: Login to DockerHub
+        if: github.ref == 'refs/heads/main'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build (develop branch → no push, main branch → push)
+        uses: docker/build-push-action@v5
+        with:
+          context: ./images/docker-${{ matrix.image }}
+          platforms: linux/amd64,linux/arm64
+          push: ${{ github.ref == 'refs/heads/main' }}
+          tags: |
+            simplicateca/${{ matrix.image }}:${{ env.RELEASE_VERSION }}
+            ${{ github.ref == 'refs/heads/main' && format('simplicateca/{0}:latest', matrix.image) || '' }}

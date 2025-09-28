@@ -1,58 +1,34 @@
-# simplicateca/python-fastapi:3.10
+# simplicateca/python-fastapi:3.13
 
-Originally based on [tiangolo/uvicorn-gunicorn:python3.10](https://github.com/tiangolo/uvicorn-gunicorn-docker/blob/master/docker-images/python3.10.dockerfile).
-
-In addition to building with FastAPI and Uvicorn, this image also contains includes a number of Python libraries useful for building web applications, APIs, and NLP tools.
+Custom Python 3.13 image for FastAPI apps.
+Includes a curated stack for APIs, NLP/AI, parsing, media, email, and data pipelines.
 
 ## OS & Core Packages
 
-* Python 3.10 (Debian 12)
-* nano (text editor - for when you have to shell in to debug something)
+* Python 3.13 (Debian slim)
+* ffmpeg, ImageMagick, Ghostscript
+* nano (debug editor)
+* build-essential (compiled away in final image if using multi-stage build)
 
 ## Python Libraries Included
 
-* fastapi
-* trafilatura
-* Scrapy
-* requests
-* youtube-dl
-* PyPDF2
-* moviepy
-* pydub
-* vosk
-* youtube_transcript_api
-* google-api-python-client
-* python-frontmatter
-* tavily-python
-* Jinja2
-* dropbox
-* meilisearch
-* miniflux
-* watchdog
-* archive-reddit-user
-* bdfr
-* twilio
-* slackbot
-* signalbot
-* langchain
-* tiktoken
-* unstructured
-* chromadb
-* pymongo
-* psycopg2
-* openai
-* spacy
-* git+https://github.com/LIAAD/yake
-* git+https://github.com/boudinfl/pke.git
+See [requirements.txt](./requirements.txt) for the full list:
+- FastAPI, Uvicorn, httpx, aiofiles
+- OpenAI, LangChain, ChromaDB, Spacy, Unstructured
+- Meilisearch, MinIO, Dropbox, MongoDB, PostgreSQL
+- PyPDF2, pdfplumber, python-docx, openpyxl, Pandas, PyArrow
+- Pillow, OpenCV, ffmpeg-python, MoviePy, Pydub, Vosk
+- Scrapy, Trafilatura, Google API Client
+- Markdown-it-py, feedparser
+- aiosmtplib, Mailersend, imap-tools, mail-parser
+- Twilio, Slackbot, Signalbot
+- Rich, Loguru, Watchdog, Tavily
+- Yake, PKE, Archive Reddit User, BDFR
 
+## Usage
 
-### Libraries being considered
+Build locally:
 
-* gpt4all
-* langchain
-* langgraph
-* langchainhub
-* langchain_community
-* langchain-openai
-* langchain-mistralai
-* llama-cpp-python
+```bash
+docker build -t simplicateca/python-fastapi:local ./images/docker-python-fastapi
+docker run -it --rm -p 8000:8000 -v $(pwd):/app simplicateca/python-fastapi:local
