@@ -10,7 +10,6 @@ RUN apt-get update && apt-get upgrade -y \
         make \
         pkg-config \
         libbz2-dev \
-        libc-client2007e-dev \
         libcurl4-gnutls-dev \
         libedit-dev \
         libfreetype6-dev \
@@ -46,8 +45,6 @@ RUN apt-get update && apt-get upgrade -y \
         xsl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
-    && PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
-    && docker-php-ext-install imap \
     && docker-php-ext-configure intl \
     && docker-php-ext-install intl \
     && docker-php-ext-configure ldap \
