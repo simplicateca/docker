@@ -1,44 +1,49 @@
-FROM php:8.3-fpm
+# Stage 1: Builder
+FROM php:8.3-fpm-bookworm AS builder
 
 LABEL maintainer="Steve Comrie <steve@simplicate.ca>"
 
+# Install build dependencies
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y \
-    g++ \
-    libbz2-dev \
-    libc-client-dev \
-    libcurl4-gnutls-dev \
-    libedit-dev \
-    libfreetype6-dev \
-    libicu-dev \
-    libjpeg62-turbo-dev \
-    libkrb5-dev \
-    libldap2-dev \
-    libldb-dev \
-    libmagickwand-dev \
-    libmcrypt-dev \
-    libpng-dev \
-    libpq-dev \
-    libsqlite3-dev \
-    libssl-dev \
-    libreadline-dev \
-    libxslt1-dev \
-    libzip-dev \
-    wget \
-    unzip \
-    zlib1g-dev \
-    default-mysql-client \
+    && apt-get install -y --no-install-recommends \
+        g++ \
+        make \
+        pkg-config \
+        libbz2-dev \
+        libc-client2007e-dev \
+        libcurl4-gnutls-dev \
+        libedit-dev \
+        libfreetype6-dev \
+        libicu-dev \
+        libjpeg62-turbo-dev \
+        libkrb5-dev \
+        libldap2-dev \
+        libldb-dev \
+        libmagickwand-dev \
+        libmcrypt-dev \
+        libpng-dev \
+        libpq-dev \
+        libsqlite3-dev \
+        libssl-dev \
+        libreadline-dev \
+        libxslt1-dev \
+        libzip-dev \
+        zlib1g-dev \
+        wget \
+        unzip \
+        git \
+        default-mysql-client \
     && docker-php-ext-install \
-    bcmath \
-    bz2 \
-    calendar \
-    exif \
-    gettext \
-    mysqli \
-    opcache \
-    pdo_mysql \
-    soap \
-    xsl \
+        bcmath \
+        bz2 \
+        calendar \
+        exif \
+        gettext \
+        mysqli \
+        opcache \
+        pdo_mysql \
+        soap \
+        xsl \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install gd \
     && PHP_OPENSSL=yes docker-php-ext-configure imap --with-kerberos --with-imap-ssl \
@@ -50,12 +55,39 @@ RUN apt-get update && apt-get upgrade -y \
     && docker-php-ext-configure zip \
     && docker-php-ext-install zip \
     && CFLAGS="$CFLAGS -D_GNU_SOURCE" docker-php-ext-install sockets \
-    && pecl install xmlrpc-1.0.0RC3 && docker-php-ext-enable xmlrpc \
-    && pecl install xdebug && docker-php-ext-enable xdebug \
-    && pecl install redis && docker-php-ext-enable redis \
+    && pecl install xdebug redis xmlrpc-1.0.0RC3 \
+    && docker-php-ext-enable xdebug redis xmlrpc \
     && yes '' | pecl install imagick && docker-php-ext-enable imagick \
-    && docker-php-source delete \
-    && apt-get remove -y g++ wget \
-    && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/* /var/tmp/*
+    && docker-php-source delete
+
+# Stage 2: Runtime
+FROM php:8.3-fpm-bookworm
+
+LABEL maintainer="Steve Comrie <steve@simplicate.ca>"
+
+# Copy compiled extensions from builder
+COPY --from=builder /usr/local/lib/php/extensions/ /usr/local/lib/php/extensions/
+COPY --from=builder /usr/local/etc/php/conf.d/ /usr/local/etc/php/conf.d/
+
+# Install only runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libfreetype6 \
+        libjpeg62-turbo \
+        libpng16-16 \
+        libicu72 \
+        libldap-2.5-0 \
+        libmagickwand-6.q16-6 \
+        libpq5 \
+        libxslt1.1 \
+        libzip4 \
+        zlib1g \
+        ghostscript \
+        imagemagick \
+        nano \
+        curl \
+        wget \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+WORKDIR /var/www/html
+
+CMD ["php-fpm"]
